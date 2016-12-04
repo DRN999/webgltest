@@ -58,7 +58,6 @@ function initImages(name, index)
 
 function handleTextureLoaded(image, texture, index)
 {
-	gl.activeTexture(gl.TEXTURE0 + index);
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 	gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
@@ -206,7 +205,7 @@ function drawThingsTexture()
 	}
 				
 	gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-	gl.activeTexture(gl.TEXTURE0);
+	//gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, textures[0]);
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
