@@ -159,7 +159,7 @@ function initImages()
 		handleTextureLoaded(image, texture);
 	}
 	image.crossOrigin = "";
-	image.src = "f-texture.png";
+	image.src = "../resources/f-texture.png";
 	console.log(image);
 }
 
