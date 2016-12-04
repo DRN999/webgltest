@@ -34,6 +34,7 @@ function main()
 
 function imageLoadedCheck()
 {
+	console.log("called");
 	for(var i in imageLoaded)
 	{
 		if (!imageLoaded.hasOwnProperty(i)) {continue;}
@@ -108,8 +109,6 @@ function drawThings()
 
 function drawThingsTexture()
 {
-	console.log("draw");
-	console.log(imageLoaded);
 	gl.useProgram(program[1]);
 	gl.program = program[1];
 	var vertices = 	[	
