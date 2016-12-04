@@ -171,6 +171,7 @@ function initImages(name)
 	{
 		console.log("loaded");
 		imageLoaded.set(name, true);
+		console.log(imageLoaded);
 		handleTextureLoaded(image, texture);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
