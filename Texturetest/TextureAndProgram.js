@@ -160,10 +160,10 @@ function drawThingsTexture()
 	gl.useProgram(program[1]);
 	gl.program = program[1];
 	var vertices = 	[	
-						-200, 100, 0,
-						-200, -100, 0,
-						0, 100, 0,
-						0, -100, 0
+						-300, 100, 0,
+						-300, -100, 0,
+						-100, 100, 0,
+						-100, -100, 0
 					];
 	var tex_coord =	[
 						0, 0,
