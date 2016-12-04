@@ -69,7 +69,7 @@ function imageLoadedCheck()
 	for(var i = 0; i < imageLoaded.length; i++)
 	{
 		console.log(imageLoaded[i]);
-		if(!imageLoaded[i] && imageLoaded != null)
+		if(!imageLoaded[i] && typeof imageLoaded[i] !== null)
 		{
 			console.log("return false");
 			return false;
