@@ -95,18 +95,27 @@ function drawThingsTexture()
 						100, 100, 0,
 						100, -100, 0
 					];
+	var tex_coord =	[
+						0, 0,
+						0, 1,
+						1, 0,
+						1, 1	
+					];
 	var indices =	[
 						0, 1, 2,
 						1, 3, 2
 					];
+					
+					
 	
 	var f_vertices = new Float32Array(vertices);
+	var f_tex_coord = new Float32Array(tex_coord);
 	var u_indices = new Uint16Array(indices);
 	
 	var mvpMatrix = new Matrix4();
 	var vertex_buffer = gl.createBuffer();
 	var index_buffer = gl.createBuffer();
-	var color_buffer = gl.createBuffer();
+	var tex_buffer = gl.createBuffer();
 	
 	var u_MvpMatrix = gl.getUniformLocation(gl.program, 'u_MvpMatrix');
 	
@@ -117,7 +126,7 @@ function drawThingsTexture()
 		-250, 250
 	);
 	
-	if(!vertex_buffer || ! index_buffer || !color_buffer)
+	if(!vertex_buffer || ! index_buffer || !tex_buffer)
 	{// check if both buffer created succesfully 
 		console.log("failed to create buffer");
 		return -1;
@@ -140,6 +149,14 @@ function drawThingsTexture()
 		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
 		gl.generateMipmap(gl.TEXTURE_2D);
 	});
+	var u_texture = gl.getUniformLocation(program, "u_Texture");
+	gl.uniform1i(u_Texture, 0);
+	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
+	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, u_indices, gl.STATIC_DRAW);
+	
+	gl.drawElements(gl.TRIANGLES, u_indices.length, gl.UNSIGNED_SHORT, 0);
 		
 }
 
