@@ -1,0 +1,80 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Final Project(Noriaki Nakano, Nathaniel Kevin Suriawijayalolomao)</title>
+	<style>
+
+		#webgl
+		{
+			border:1px solid #000000;
+		}
+		
+	</style>
+
+</head>
+
+<body onload = "main()">
+
+	<canvas id="webgl" width="500" height="500">Please use a browser that supports canvas</canvas><br/>
+	
+	<script id="vertex-shader" type="x-shader/x-fragment">
+		precision mediump float;
+		attribute vec4 a_Position;
+		attribute vec4 a_Colors;
+		uniform mat4 u_MvpMatrix;
+		varying vec4 v_Colors;
+	
+		void main()
+		{
+			gl_Position =  u_MvpMatrix * a_Position;
+			v_Colors = a_Colors;
+		}
+	</script>
+	
+	<script id="fragment-shader" type="x-shader/x-fragment">
+	
+		precision mediump float;
+		varying vec4 v_Colors;
+		
+		void main()
+		{
+			gl_FragColor = v_Colors;
+		}
+	
+	</script>
+	
+	<script id="vertex-shader-texture" type="x-shader/x-fragment">
+		attribute vec4 a_Position;
+		attribute vec2 a_Texcoord;
+		uniform mat4 u_MvpMatrix;
+		varying vec2 v_Texcoord;
+		
+		void main() 
+		{
+			gl_Position = u_MvpMatrix * a_Position;
+			v_Texcoord = a_Texcoord;
+		}
+	</script>
+	
+	<script id="fragment-shader-texture" type="x-shader/x-fragment">
+		precision mediump float;
+		varying vec2 v_Texcoord;
+		uniform sampler2D u_Texture;
+	 
+		void main() 
+		{
+			gl_FragColor = texture2D(u_Texture, v_Texcoord);
+		}
+	</script>
+	
+	
+	
+	<script src="../lib/webgl-utils.js"></script>
+	<script src="../lib/webgl-debug.js"></script>
+	<script src="../lib/cuon-utils.js"></script>
+	<script src="../lib/cuon-matrix.js"></script>
+	<script src="TextureAndProgram.js"></script>
+	
+</body>
+
+</html>
