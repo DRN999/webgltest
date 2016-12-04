@@ -7,6 +7,7 @@ var canvas = document.getElementById('webgl'); // canvas
 var gl = WebGLUtils.setupWebGL(canvas,{preserveDrawingBuffer: true}, {premultipliedAlpha: false});
 var program = new Array();
 var imageLoaded = new Array(20);
+var textures = new Array();
 
 
 function main()
@@ -37,13 +38,13 @@ function main()
 
 function initImages(name, index)
 {
-	var texture = gl.createTexture();
+	textures.push(gl.createTexture());
 	var image = new Image();
 	image.onload = function()
 	{
 		console.log("loaded");
 		imageLoaded[index] = true;
-		handleTextureLoaded(image, texture, index);
+		handleTextureLoaded(image, textures[index], index);
 		gl.activeTexture(gl.TEXTURE0 + index);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		gl.useProgram(program[1]);
@@ -206,7 +207,8 @@ function drawThingsTexture()
 	}
 				
 	gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-	
+	gl.activeTexture(gl.TEXTURE0 + index)
+	gl.bindTexture(gl.TEXTURE_2D, textures[1]);
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
