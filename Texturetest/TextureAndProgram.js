@@ -21,8 +21,7 @@ function main()
 	
 	initImages("../resources/blue.jpg", 0);
 	imageLoaded[0] = false;
-	initImages("../resources/f-texture.png", 1);
-	imageLoaded[1] = false;
+
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -207,7 +206,7 @@ function drawThingsTexture()
 	}
 				
 	gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-	gl.activeTexture(gl.TEXTURE0 + 1);
+	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, textures[0]);
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
