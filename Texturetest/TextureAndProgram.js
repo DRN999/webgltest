@@ -10,6 +10,7 @@ var program = new Array();
 function main()
 {
 	initShaders();
+	initImages();
 	if(!gl)
 	{
 		console.log("failed to load context");
@@ -19,7 +20,13 @@ function main()
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	//drawThings();
-	initImages();
+	
+	var tick = function()
+	{// animation tick
+		drawThingsTexture();
+		requestAnimationFrame(tick, canvas);					
+	}// End tick()
+	tick();
 }
 
 function initShaders()
@@ -51,7 +58,7 @@ function drawThings()
 						1, 3, 2
 					];
 	
-	var f_vertices = new Float32Array(vertices);
+	var f_vertices = new Float32Array(vertices); 
 	var f_colors = new Float32Array(colors);
 	var u_indices = new Uint16Array(indices);
 	var mvpMatrix = new Matrix4();
@@ -154,7 +161,6 @@ function initImages()
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		var u_Texture = gl.getUniformLocation(program[1], "u_Texture");
 		gl.uniform1i(u_Texture, 0);
-		drawThingsTexture();
 	}
 	image.crossOrigin = "";
 	image.src = "f-texture.png";
@@ -169,7 +175,7 @@ function handleTextureLoaded(image, texture)
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 	gl.generateMipmap(gl.TEXTURE_2D);
-    gl.bindTexture(gl.TEXTURE_2D, null);
+	gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
 
