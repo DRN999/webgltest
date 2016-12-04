@@ -207,7 +207,7 @@ function drawThingsTexture()
 	}
 				
 	gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-	gl.activeTexture(gl.TEXTURE0 + index);
+	gl.activeTexture(gl.TEXTURE0 + 1);
 	gl.bindTexture(gl.TEXTURE_2D, textures[1]);
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
