@@ -6,6 +6,8 @@ var FSHADER_SOURCE_TEXTURE = document.getElementById("fragment-shader-texture").
 var canvas = document.getElementById('webgl'); // canvas
 var gl = WebGLUtils.setupWebGL(canvas,{preserveDrawingBuffer: true}, {premultipliedAlpha: false});
 var program = new Array();
+var imageLoaded = false;
+
 
 function main()
 {
@@ -23,7 +25,8 @@ function main()
 	var tick = function()
 	{// animation tick
 		console.log("tick");
-		drawThingsTexture();
+		if(imageLoaded)
+			drawThingsTexture();
 		requestAnimationFrame(tick, canvas);					
 	}// End tick()
 	tick();
@@ -156,6 +159,7 @@ function initImages()
 	image.onload = function()
 	{
 		console.log("loaded");
+		imageLoaded = true;
 		handleTextureLoaded(image, texture);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -175,7 +179,6 @@ function handleTextureLoaded(image, texture)
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 	gl.generateMipmap(gl.TEXTURE_2D);
-	gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
 
