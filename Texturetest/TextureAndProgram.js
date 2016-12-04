@@ -66,10 +66,10 @@ function handleTextureLoaded(image, texture, index)
 	}
 	else
 	{
-		texParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER, LINEAR);
-		texParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER, LINEAR);
-		texParameteri(TEXTURE_2D, TEXTURE_WRAP_S, CLAMP_TO_EDGE);
-		texParameteri(TEXTURE_2D, TEXTURE_WRAP_T, CLAMP_TO_EDGE)
+		gl.texParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER, LINEAR);
+		gl.texParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER, LINEAR);
+		gl.texParameteri(TEXTURE_2D, TEXTURE_WRAP_S, CLAMP_TO_EDGE);
+		gl.texParameteri(TEXTURE_2D, TEXTURE_WRAP_T, CLAMP_TO_EDGE)
 	}
 	
 }
