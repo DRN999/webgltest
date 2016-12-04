@@ -43,7 +43,7 @@ function initImages(name, index)
 	{
 		console.log("loaded");
 		imageLoaded[index] = true;
-		handleTextureLoaded(image, texture);
+		handleTextureLoaded(image, texture, index);
 		gl.activeTexture(gl.TEXTURE0 + index);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		gl.useProgram(program[1]);
@@ -56,8 +56,9 @@ function initImages(name, index)
 	console.log(image);
 }
 
-function handleTextureLoaded(image, texture)
+function handleTextureLoaded(image, texture, index)
 {
+	gl.activeTexture(gl.TEXTURE0 + index)
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 	gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
