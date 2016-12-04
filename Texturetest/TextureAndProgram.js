@@ -18,8 +18,8 @@ function main()
 		console.log("failed to load context");
 		return -1;
 	}
-	initImages("../resources/f-texture.png", 0);
-	imageLoaded[0] = false;
+	//initImages("../resources/f-texture.png", 0);
+	//imageLoaded[0] = false;
 	initImages("../resources/blue.jpg", 1);
 	imageLoaded[1] = false;
 	
