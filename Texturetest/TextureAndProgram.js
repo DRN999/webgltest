@@ -18,11 +18,11 @@ function main()
 		console.log("failed to load context");
 		return -1;
 	}
-	//initImages("../resources/f-texture.png", 0);
-	//imageLoaded[0] = false;
+	
 	initImages("../resources/blue.jpg", 0);
 	imageLoaded[0] = false;
-	
+	initImages("../resources/f-texture.png", 1);
+	imageLoaded[1] = false;
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
