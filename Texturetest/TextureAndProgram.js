@@ -84,10 +84,8 @@ function imageLoadedCheck()
 	
 	for(var i = 0; i < imageLoaded.length; i++)
 	{
-		console.log(imageLoaded[i]);
 		if(!imageLoaded[i] && typeof imageLoaded[i] !== "undefined")
 		{
-			console.log("return false");
 			return false;
 		}
 	}
@@ -206,7 +204,7 @@ function drawThingsTexture()
 				
 	gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
 	//gl.activeTexture(gl.TEXTURE0);
-	gl.bindTexture(gl.TEXTURE_2D, textures[0]);
+	//gl.bindTexture(gl.TEXTURE_2D, textures[0]);
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
