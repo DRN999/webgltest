@@ -19,6 +19,9 @@ function main()
 	}
 	initImages("../resources/f-texture.png", 0);
 	imageLoaded[0] = false;
+	initImages("../resources/blue.jpg", 1);
+	imageLoaded[1] = false;
+	
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -41,7 +44,7 @@ function initImages(name, index)
 		console.log("loaded");
 		imageLoaded[index] = true;
 		handleTextureLoaded(image, texture);
-		gl.activeTexture(gl.TEXTURE0);
+		gl.activeTexture(gl.TEXTURE0 + index);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		gl.useProgram(program[1]);
 		gl.program = program[1];
