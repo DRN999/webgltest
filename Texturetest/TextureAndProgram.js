@@ -162,7 +162,7 @@ function initImages()
 		gl.uniform1i(u_Texture, 0);
 	}
 	image.crossOrigin = "";
-	image.src = "../resources/f-texture.png";
+	image.src = "f-texture.png";
 	console.log(image);
 }
 
