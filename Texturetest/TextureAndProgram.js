@@ -17,7 +17,7 @@ function main()
 		console.log("failed to load context");
 		return -1;
 	}
-	initImages("../resources/f-texture");
+	initImages("../resources/f-texture.png");
 	imageLoaded.set("f-texture", false);
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
