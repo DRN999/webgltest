@@ -46,7 +46,7 @@ function initImages(name, index)
 		imageLoaded[index] = true;
 		handleTextureLoaded(image, textures[index], index);
 		gl.activeTexture(gl.TEXTURE0 + index);
-		gl.bindTexture(gl.TEXTURE_2D, texture);
+		gl.bindTexture(gl.TEXTURE_2D, textures[index]);
 		gl.useProgram(program[1]);
 		gl.program = program[1];
 		var u_Texture = gl.getUniformLocation(gl.program, "u_Texture");
