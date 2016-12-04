@@ -6,8 +6,6 @@ var FSHADER_SOURCE_TEXTURE = document.getElementById("fragment-shader-texture").
 var canvas = document.getElementById('webgl'); // canvas
 var gl = WebGLUtils.setupWebGL(canvas,{preserveDrawingBuffer: true}, {premultipliedAlpha: false});
 var program = new Array();
-var program_texture;
-var texture;
 
 function main()
 {
@@ -147,7 +145,7 @@ function drawThingsTexture()
 
 function initImages()
 {
-	texture = gl.createTexture();
+	var texture = gl.createTexture();
 	var image = new Image();
 	image.onload = function()
 	{
@@ -155,7 +153,7 @@ function initImages()
 		handleTextureLoaded(image, texture);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
-		var u_Texture = gl.getUniformLocation(gl.program, "u_Texture");
+		var u_Texture = gl.getUniformLocation(program[1], "u_Texture");
 		gl.uniform1i(u_Texture, 0);
 	}
 	image.crossOrigin = "";
