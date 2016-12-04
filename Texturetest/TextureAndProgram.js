@@ -44,7 +44,9 @@ function initImages(name, index)
 		handleTextureLoaded(image, texture);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
-		var u_Texture = gl.getUniformLocation(program[1], "u_Texture");
+		gl.useProgram(program[1]);
+		gl.program = program[1];
+		var u_Texture = gl.getUniformLocation(gl.program, "u_Texture");
 		gl.uniform1i(u_Texture, 0);
 	}
 	image.crossOrigin = "";
@@ -64,7 +66,6 @@ function handleTextureLoaded(image, texture)
 
 function imageLoadedCheck()
 {
-	console.log("called");
 	for(var i = 0; i < imageLoaded.length; i++)
 	{
 		if(!imageLoaded[i])
