@@ -149,7 +149,7 @@ function drawThingsTexture()
 		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
 		gl.generateMipmap(gl.TEXTURE_2D);
 	});
-	var u_texture = gl.getUniformLocation(gl.program, "u_Texture");
+	var u_Texture = gl.getUniformLocation(gl.program, "u_Texture");
 	gl.uniform1i(u_Texture, 0);
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
