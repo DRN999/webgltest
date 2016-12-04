@@ -7,6 +7,7 @@ var canvas = document.getElementById('webgl'); // canvas
 var gl = WebGLUtils.setupWebGL(canvas,{preserveDrawingBuffer: true}, {premultipliedAlpha: false});
 var program = new Array();
 var program_texture;
+var texture;
 
 function main()
 {
@@ -19,7 +20,8 @@ function main()
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	drawThings();
+	//drawThings();
+	initImages();
 	drawThingsTexture();
 }
 
@@ -133,24 +135,12 @@ function drawThingsTexture()
 	}
 				
 	gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-		
-
-	var texture = gl.createTexture();
+	
+	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, texture);
-
-	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 255, 255]));
-
-	var image = new Image();
-	image.crossOrigin = "";
-	image.src = "../resources/f-texture.png";
-	image.addEventListener('load', function() 
-	{
-		gl.bindTexture(gl.TEXTURE_2D, texture);
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
-		gl.generateMipmap(gl.TEXTURE_2D);
-	});
 	var u_Texture = gl.getUniformLocation(gl.program, "u_Texture");
 	gl.uniform1i(u_Texture, 0);
+	
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
@@ -158,6 +148,30 @@ function drawThingsTexture()
 	
 	gl.drawElements(gl.TRIANGLES, u_indices.length, gl.UNSIGNED_SHORT, 0);
 		
+}
+
+function initImages()
+{
+	texture = gl.createTexture();
+	var image = new Image();
+	image.onload = function()
+	{
+		handleTextureLoaded(image, texture);
+	}
+	image.crossOrigin = "";
+	image.src = "f-texture.png";
+	console.log(image);
+}
+
+function handleTextureLoaded(image, texture)
+{
+	gl.bindTexture(gl.TEXTURE_2D, texture);
+	gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+	gl.generateMipmap(gl.TEXTURE_2D);
+    gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
 
