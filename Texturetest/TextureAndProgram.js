@@ -136,11 +136,6 @@ function drawThingsTexture()
 				
 	gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
 	
-	gl.activeTexture(gl.TEXTURE0);
-	gl.bindTexture(gl.TEXTURE_2D, texture);
-	var u_Texture = gl.getUniformLocation(gl.program, "u_Texture");
-	gl.uniform1i(u_Texture, 0);
-	
 	init_array_buffer(vertex_buffer, 3, "a_Position", f_vertices, gl.program);
 	init_array_buffer(tex_buffer, 2, "a_Texcoord", f_tex_coord, gl.program);
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
@@ -157,6 +152,10 @@ function initImages()
 	image.onload = function()
 	{
 		handleTextureLoaded(image, texture);
+		gl.activeTexture(gl.TEXTURE0);
+		gl.bindTexture(gl.TEXTURE_2D, texture);
+		var u_Texture = gl.getUniformLocation(gl.program, "u_Texture");
+		gl.uniform1i(u_Texture, 0);
 	}
 	image.crossOrigin = "";
 	image.src = "../resources/f-texture.png";
