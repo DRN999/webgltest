@@ -109,6 +109,7 @@ function drawThings()
 function drawThingsTexture()
 {
 	console.log("draw");
+	console.log(imageLoaded);
 	gl.useProgram(program[1]);
 	gl.program = program[1];
 	var vertices = 	[	
