@@ -40,7 +40,6 @@ function initImages(name, index)
 	{
 		console.log("loaded");
 		imageLoaded[index] = true;
-		console.log(imageLoaded);
 		handleTextureLoaded(image, texture);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -66,10 +65,15 @@ function handleTextureLoaded(image, texture)
 
 function imageLoadedCheck()
 {
+	
 	for(var i = 0; i < imageLoaded.length; i++)
 	{
+		console.log(imageLoaded[i]);
 		if(!imageLoaded[i])
+		{
+			console.log("return false");
 			return false;
+		}
 	}
 	console.log("return true");
 	return true;
