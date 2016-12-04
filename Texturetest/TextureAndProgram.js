@@ -10,17 +10,16 @@ var program = new Array();
 function main()
 {
 	initShaders();
-	initImages();
 	if(!gl)
 	{
 		console.log("failed to load context");
 		return -1;
 	}
+	initImages();
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	//drawThings();
-	
 	var tick = function()
 	{// animation tick
 		drawThingsTexture();
