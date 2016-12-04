@@ -20,7 +20,6 @@ function main()
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	//drawThings();
 	initImages();
-	drawThingsTexture();
 }
 
 function initShaders()
@@ -155,9 +154,10 @@ function initImages()
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		var u_Texture = gl.getUniformLocation(program[1], "u_Texture");
 		gl.uniform1i(u_Texture, 0);
+		drawThingsTexture();
 	}
 	image.crossOrigin = "";
-	image.src = "../resources/f-texture.png";
+	image.src = "f-texture.png";
 	console.log(image);
 }
 
