@@ -21,6 +21,8 @@ function main()
 	
 	initImages("../resources/blue.jpg", 0);
 	imageLoaded[0] = false;
+	initImages("../resources/f-texture.png", 1);
+	imageLoaded[1] = false;
 
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
