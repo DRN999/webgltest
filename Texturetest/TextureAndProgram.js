@@ -18,7 +18,7 @@ function main()
 		return -1;
 	}
 	initImages("../resources/f-texture.png");
-	imageLoaded.set("f-texture", false);
+	imageLoaded.set("../resources/f-texture", false);
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
