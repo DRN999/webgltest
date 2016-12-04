@@ -6,7 +6,7 @@ var FSHADER_SOURCE_TEXTURE = document.getElementById("fragment-shader-texture").
 var canvas = document.getElementById('webgl'); // canvas
 var gl = WebGLUtils.setupWebGL(canvas,{preserveDrawingBuffer: true}, {premultipliedAlpha: false});
 var program = new Array();
-var imageLoaded = false;
+var imageLoaded = new Map();
 
 
 function main()
@@ -17,18 +17,29 @@ function main()
 		console.log("failed to load context");
 		return -1;
 	}
-	initImages();
+	initImages("../resources/f-texture");
+	imageLoaded.set("f-texture", false);
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	//drawThings();
 	var tick = function()
 	{// animation tick
-		if(imageLoaded)
+		if(imageLoadedCheck())
 			drawThingsTexture();
 		requestAnimationFrame(tick, canvas);					
 	}// End tick()
 	tick();
+}
+
+function imageLoadedCheck()
+{
+	for(var i in imageLoaded)
+	{
+		if(!imageLoaded.get(i))
+			return false;
+	}
+	return true;
 }
 
 function initShaders()
@@ -152,14 +163,14 @@ function drawThingsTexture()
 		
 }
 
-function initImages()
+function initImages(name)
 {
 	var texture = gl.createTexture();
 	var image = new Image();
 	image.onload = function()
 	{
 		console.log("loaded");
-		imageLoaded = true;
+		imageLoaded.set(name, true);
 		handleTextureLoaded(image, texture);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -167,7 +178,7 @@ function initImages()
 		gl.uniform1i(u_Texture, 0);
 	}
 	image.crossOrigin = "";
-	image.src = "../resources/f-texture.png";
+	image.src = name;
 	console.log(image);
 }
 
