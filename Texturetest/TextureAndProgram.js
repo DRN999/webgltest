@@ -36,7 +36,8 @@ function imageLoadedCheck()
 {
 	for(var i in imageLoaded)
 	{
-		if(!imageLoaded[i])
+		console.log(imageLoaded.get(i));
+		if(!imageLoaded.get(i))
 			return false;
 	}
 	return true;
