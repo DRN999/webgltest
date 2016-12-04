@@ -24,7 +24,6 @@ function main()
 	//drawThings();
 	var tick = function()
 	{// animation tick
-		console.log("tick");
 		if(imageLoaded)
 			drawThingsTexture();
 		requestAnimationFrame(tick, canvas);					
@@ -96,6 +95,7 @@ function drawThings()
 
 function drawThingsTexture()
 {
+	console.log("draw");
 	gl.useProgram(program[1]);
 	gl.program = program[1];
 	var vertices = 	[	
