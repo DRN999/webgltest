@@ -25,9 +25,9 @@ function main()
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	//drawThings();
 	var tick = function()
 	{// animation tick
+		drawThings();
 		if(imageLoadedCheck())
 			drawThingsTexture();
 		requestAnimationFrame(tick, canvas);					
@@ -160,10 +160,10 @@ function drawThingsTexture()
 	gl.useProgram(program[1]);
 	gl.program = program[1];
 	var vertices = 	[	
-						-100, 100, 0,
-						-100, -100, 0,
-						100, 100, 0,
-						100, -100, 0
+						-200, 100, 0,
+						-200, -100, 0,
+						0, 100, 0,
+						0, -100, 0
 					];
 	var tex_coord =	[
 						0, 0,
