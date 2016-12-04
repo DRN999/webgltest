@@ -71,6 +71,7 @@ function imageLoadedCheck()
 		if(!imageLoaded[i])
 			return false;
 	}
+	console.log("return true");
 	return true;
 }
 
