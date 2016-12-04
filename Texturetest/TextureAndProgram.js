@@ -22,6 +22,7 @@ function main()
 	//drawThings();
 	var tick = function()
 	{// animation tick
+	console.log("tick");
 		drawThingsTexture();
 		requestAnimationFrame(tick, canvas);					
 	}// End tick()
