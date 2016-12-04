@@ -6,7 +6,7 @@ var FSHADER_SOURCE_TEXTURE = document.getElementById("fragment-shader-texture").
 var canvas = document.getElementById('webgl'); // canvas
 var gl = WebGLUtils.setupWebGL(canvas,{preserveDrawingBuffer: true}, {premultipliedAlpha: false});
 var program = new Array();
-var imageLoaded = new Map();
+var imageLoaded = new Array(20);
 
 
 function main()
@@ -17,8 +17,8 @@ function main()
 		console.log("failed to load context");
 		return -1;
 	}
-	initImages("../resources/f-texture.png");
-	imageLoaded.set("../resources/f-texture.png", false);
+	initImages("../resources/f-texture.png", 0);
+	imageLoaded[0] = false;
 	gl.clearColor(1,1,1,1);
 	gl.enable(gl.DEPTH_TEST);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -32,14 +32,42 @@ function main()
 	tick();
 }
 
+function initImages(name, index)
+{
+	var texture = gl.createTexture();
+	var image = new Image();
+	image.onload = function()
+	{
+		console.log("loaded");
+		imageLoaded[index] = true;
+		console.log(imageLoaded);
+		handleTextureLoaded(image, texture);
+		gl.activeTexture(gl.TEXTURE0);
+		gl.bindTexture(gl.TEXTURE_2D, texture);
+		var u_Texture = gl.getUniformLocation(program[1], "u_Texture");
+		gl.uniform1i(u_Texture, 0);
+	}
+	image.crossOrigin = "";
+	image.src = name;
+	console.log(image);
+}
+
+function handleTextureLoaded(image, texture)
+{
+	gl.bindTexture(gl.TEXTURE_2D, texture);
+	gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+	gl.generateMipmap(gl.TEXTURE_2D);
+}
+
 function imageLoadedCheck()
 {
 	console.log("called");
-	for(var i in imageLoaded)
+	for(var i = 0; i < imageLoaded.length; i++)
 	{
-		if (!imageLoaded.hasOwnProperty(i)) {continue;}
-		console.log("Key result: " + imageLoaded.get(i));
-		if(!imageLoaded.get(i))
+		if(!imageLoaded[i])
 			return false;
 	}
 	return true;
@@ -165,35 +193,6 @@ function drawThingsTexture()
 		
 }
 
-function initImages(name)
-{
-	var texture = gl.createTexture();
-	var image = new Image();
-	image.onload = function()
-	{
-		console.log("loaded");
-		imageLoaded.set(name, true);
-		console.log(imageLoaded);
-		handleTextureLoaded(image, texture);
-		gl.activeTexture(gl.TEXTURE0);
-		gl.bindTexture(gl.TEXTURE_2D, texture);
-		var u_Texture = gl.getUniformLocation(program[1], "u_Texture");
-		gl.uniform1i(u_Texture, 0);
-	}
-	image.crossOrigin = "";
-	image.src = name;
-	console.log(image);
-}
-
-function handleTextureLoaded(image, texture)
-{
-	gl.bindTexture(gl.TEXTURE_2D, texture);
-	gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-	gl.generateMipmap(gl.TEXTURE_2D);
-}
 
 
 function init_array_buffer(buffer, vert, name, buffer_element, program)
